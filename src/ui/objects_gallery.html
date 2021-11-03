@@ -1,18 +1,14 @@
 <sly-card title="Objects gallery"
           subtitle=""
           class="mt10"
+          v-loading="!state.done3"
+          element-loading-text="Building pages..."
           :options="{collapsable: true}"
           :collapsed.sync="state.collapsed3"
           :disabled="{disabled: state.disabled3, message: 'Create gallery at STEP 2'}"
           ref="step3"
 >
     <div>
-        <div v-if="data.progress3.message" class="mt10">
-            <div style="color: #20a0ff">
-                {{data.progress3.message}}: {{data.progress3.current}} / {{data.progress3.total}}
-            </div>
-            <el-progress :percentage="data.progress3.percent"></el-progress>
-        </div>
         <sly-field title="" class="mt10">
             <div v-if="state.activeStep === 3 && !state.loadingGallery && state.done3" class="fflex mb15">
 
