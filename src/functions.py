@@ -55,23 +55,15 @@ def get_input_data_and_classes_stats(project_id, dataset_id=None):
     return classes_json, selected_classes_names, len(classes_json) * [True], data_stats
 
 
-def generate_col_map(class_names):
+def generate_col_map(curr_page_data):
+    class_names = []
+    for image_url, ann, obj_name, col_idx in curr_page_data:
+        class_names.append(ann.labels[0].obj_class.name)
     col_map = {}
     class_names = list(set(class_names))
     for idx, class_name in enumerate(class_names, start=1):
         col_map[class_name] = idx
     return col_map
-
-
-def unpack_data(curr_page_data):
-    page_data = []
-    class_names = []
-    for object in curr_page_data:
-        for class_name, class_data in object.items():
-            class_names.append(class_name)
-            page_data.extend(class_data)
-    col_map = generate_col_map(class_names)
-    return page_data, col_map,
 
 
 def get_ann_by_image_id(dataset_id, image_ids, batch_cnt):
@@ -85,31 +77,7 @@ def get_ann_by_image_id(dataset_id, image_ids, batch_cnt):
     return annotations
 
 
-def build_pages_from_page_batches(class_by_page_map, total_pages, progress):
-    complete_map = {}
-    progress.set_total(total_pages)
-    for page in range(1, total_pages + 1):
-        complete_map[page] = []
-        for class_name, data_by_page in class_by_page_map.items():
-            if page > len(data_by_page):
-                continue
-            complete_map[page].append({class_name: data_by_page[page - 1]})
-            if len(complete_map[page]) >= 10:
-                break
-        progress.increment(1)
-    progress.reset_and_update()
-    return complete_map
-
-
-def gen_list_of_lists(original_list, new_structure):
-    assert len(original_list) == sum(new_structure), \
-        "The number of elements in the original list and desired structure don't match"
-    list_of_lists = [[original_list[i + sum(new_structure[:j])] for i in range(new_structure[j])] \
-                     for j in range(len(new_structure))]
-    return list_of_lists
-
-
-def get_gallery_map(anns, curr_images_urls, selected_classes):
+def build_gallery_map(anns, curr_images_urls, selected_classes):
     gallery_map = {}
     for obj_class_name in selected_classes:
         curr_cls_objs = []
@@ -124,67 +92,67 @@ def get_gallery_map(anns, curr_images_urls, selected_classes):
     return gallery_map
 
 
-def get_class_by_page_map(gallery_map, objs_per_cls_per_page):
-    class_by_page_map = {}
-    max_pages = 0
-    for class_name, class_objects in gallery_map.items():
-        class_by_page_map[class_name] = []
-        times = len(class_objects) // objs_per_cls_per_page
-        last_digit = len(class_objects) % objs_per_cls_per_page
-        if last_digit == 0:
-            list_struct = [*np.repeat(objs_per_cls_per_page, times)]
-        else:
-            list_struct = [*np.repeat(objs_per_cls_per_page, times), last_digit]
-        if len(list_struct) > max_pages:
-            max_pages = len(list_struct)
-        page_objects = gen_list_of_lists(class_objects, list_struct)
-        class_by_page_map[class_name].extend(page_objects)
-    return class_by_page_map
+def build_pages(gallery_map, app_state):
+    pages = []
+    for class_name, arr in gallery_map.items():
+        gallery_map[class_name] = list(reversed(arr))  # reverse the array so it's faster to delete the items later
+
+    cur_page_batch = []
+    cls_per_page = len(app_state["selectedClasses"])
+    objs_per_cls = app_state["objectsPerClassPerPage"]
+    items_list = list(gallery_map.items())
+    while len(items_list) > 0:
+        for col_idx, (class_name, class_objs) in enumerate(items_list[:cls_per_page]):  # iterate first classes
+
+            cur_page_batch += [obj + tuple([col_idx + 1]) for obj in
+                               class_objs[-objs_per_cls:]]
+            del class_objs[-objs_per_cls:]
+
+            if len(class_objs) == 0:
+                del gallery_map[class_name]
+
+        if len(cur_page_batch) > 0:
+            pages.append(cur_page_batch)
+            cur_page_batch = []
+
+        items_list = list(gallery_map.items())
+    return pages
 
 
-def get_page_to_obj_class_map(anns, curr_images_urls, selected_classes, app_state, progress):
-    g.api.task.set_field(g.TASK_ID, "state.done3", False)
+def get_pages(anns, curr_images_urls, selected_classes, app_state):
     objs_per_cls_per_page = app_state["objectsPerClassPerPage"]
     g.obj_per_class_per_page = objs_per_cls_per_page
 
-    gallery_map = get_gallery_map(anns, curr_images_urls, selected_classes)
-    class_by_page_map = get_class_by_page_map(gallery_map, objs_per_cls_per_page)
-
-    total_pages = 0
-    for class_name, arr in gallery_map.items():
-        new_arr = list(sly.batched(arr, objs_per_cls_per_page))
-        gallery_map[class_name] = new_arr
-        total_pages = max(len(new_arr), total_pages)
-
-    page_to_obj_class_map = build_pages_from_page_batches(class_by_page_map, total_pages, progress)
-    g.api.task.set_field(g.TASK_ID, "state.done3", True)
-    return page_to_obj_class_map, total_pages
+    gallery_map = build_gallery_map(anns, curr_images_urls, selected_classes)
+    pages = build_pages(gallery_map, app_state)
+    return pages
 
 
-def update_gallery_by_page(current_page, state, progress, page_cache):
+def update_gallery_by_page(current_page, state, page_cache):
     selected_classes = state["selectedClasses"]
     g.selected_classes = selected_classes
 
-    if page_cache is None or g.obj_per_class_per_page != state["objectsPerClassPerPage"]:
-        page_to_obj_class_map, total_pages = get_page_to_obj_class_map(g.annotations, g.images_urls, selected_classes, state, progress)
-        g.page_cache = (page_to_obj_class_map, total_pages)
+    if page_cache is None:
+        pages = get_pages(g.annotations, g.images_urls, selected_classes, state)
+        g.page_cache = (pages)
     else:
-        page_to_obj_class_map, total_pages = page_cache
-    curr_page_data = page_to_obj_class_map[current_page]
+        pages = page_cache
+    curr_page_data = pages[current_page - 1]
 
-    curr_page_data, col_map = unpack_data(curr_page_data)
-    cols = len(col_map)
+    col_map = generate_col_map(curr_page_data)
+    cols = len(col_map.items())
 
     full_gallery = Gallery(g.TASK_ID, g.api, 'data.perClass', g.meta, cols, True, True)
-    for image_url, ann, image_title in curr_page_data:
+    for image_url, ann, image_title, col_idx in curr_page_data:
         full_gallery.add_item(title=image_title, ann=ann, image_url=image_url,
-                              col_index=col_map[ann.labels[0].obj_class.name])
+                              col_index=col_idx)
     full_gallery.update(options=True, need_zoom=True)
 
     fields = [
         {"field": "state.galleryPage", "payload": current_page},
-        {"field": "state.totalPages", "payload": total_pages},
+        {"field": "state.totalPages", "payload": len(pages)},
         {"field": "state.inputPage", "payload": current_page},
-        {"field": "state.loadingGallery", "payload": False}
+        {"field": "state.loadingGallery", "payload": False},
+        {"field": "state.done3", "payload": True}
     ]
     g.api.app.set_fields(g.TASK_ID, fields)
