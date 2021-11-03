@@ -10,8 +10,7 @@ TASK_ID = my_app.task_id
 TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
 PROJECT_ID = int(os.environ['modal.state.slyProjectId'])
-DATASET_ID = None #42315 #42291
-#DATASET_ID = int(os.environ['modal.state.slyDatasetId'])
+DATASET_ID = int(os.environ['modal.state.slyDatasetId'])
 if DATASET_ID is not None:
     DATASET_ID = int(DATASET_ID)
 
@@ -30,9 +29,8 @@ else:
         ds_images = api.image.get_list(dataset.id, sort="name")
         images.extend(ds_images)
 
-image_ids = [image_info.id for image_info in images]
-images_urls = [image_info.full_storage_url for image_info in images]
-images_names = [image_info.name for image_info in images]
+image_ids = []
+images_urls = []
 
 work_dir = os.path.join(my_app.data_dir, "work_dir")
 mkdir(work_dir, True)
@@ -41,8 +39,11 @@ mkdir(cache_dir)
 cache = Cache(directory=cache_dir)
 cache_item_expire_time = 600  # seconds
 
-
+annotations = []
 selected_classes = []
+
+page_cache = None
+obj_per_class_per_page = None
+
 first_page = 1
 old_input = None
-old_rows = None

@@ -1,0 +1,49 @@
+<sly-card title="Objects gallery"
+          subtitle=""
+          class="mt10"
+          :options="{collapsable: true}"
+          :collapsed.sync="state.collapsed3"
+          :disabled="{disabled: state.disabled3, message: 'Create gallery at STEP 2'}"
+          ref="step3"
+>
+    <div>
+        <div v-if="data.progress3.message" class="mt10">
+            <div style="color: #20a0ff">
+                {{data.progress3.message}}: {{data.progress3.current}} / {{data.progress3.total}}
+            </div>
+            <el-progress :percentage="data.progress3.percent"></el-progress>
+        </div>
+        <sly-field title="" class="mt10">
+            <div v-if="state.activeStep === 3 && !state.loadingGallery && state.done3" class="fflex mb15">
+
+                <el-pagination
+                        @current-change="command('update-gallery')"
+                        :current-page.sync="state.inputPage"
+                        layout="prev, pager, next, jumper"
+                        :page-count="state.totalPages">
+                </el-pagination>
+
+            </div>
+            <sly-grid-gallery
+                    v-if="data.perClass"
+                    v-loading="state.loadingGallery"
+                    :content="data.perClass.content">
+                <template v-slot:card-footer="{ annotation }">
+                    <div class="mt5" style="text-align: center">
+                        <el-tag type="primary">{{annotation.title}}</el-tag>
+                    </div>
+                </template>
+            </sly-grid-gallery>
+            <div v-if="state.activeStep === 3 && !state.loadingGallery" class="fflex" style="float: right;">
+
+                <el-pagination
+                        @current-change="command('update-gallery')"
+                        :current-page.sync="state.inputPage"
+                        layout="prev, pager, next, jumper"
+                        :page-count="state.totalPages">
+                </el-pagination>
+
+            </div>
+        </sly-field>
+    </div>
+</sly-card>

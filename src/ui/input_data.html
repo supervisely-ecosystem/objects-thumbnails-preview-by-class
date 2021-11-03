@@ -1,0 +1,57 @@
+<sly-card
+        title="Input Data"
+        subtitle="Download images and annotations for Project or Dataset from server to local app directory"
+        :options="{collapsable: true}"
+        :collapsed.sync="state.collapsed1"
+        ref="step1"
+>
+    <div class="fflex">
+        <sly-field title="" description="Project">
+            <a slot="title" target="_blank"
+               :href="`/projects/${data.projectId}/datasets`">{{data.projectName}}</a>
+            <sly-icon slot="icon" :options="{ imageUrl: `${data.projectPreviewUrl}` }"/>
+        </sly-field>
+        <sly-field style="margin-left: 15px" v-if="data.datasetId != null" title="" description="Dataset">
+            <a slot="title" target="_blank"
+               :href="`/projects/${data.projectId}/datasets`">{{data.datasetName}}</a>
+            <sly-icon slot="icon" :options="{ imageUrl: `${data.datasetPreviewUrl}` }"/>
+        </sly-field>
+    </div>
+    <div class="fflex">
+        <div>
+            <p>
+                <b>Total images: {{data.projectTotalImages}}</b>
+            </p>
+
+            <p>
+                <b>Total objects: {{data.projectTotalObjects}}</b>
+            </p>
+        </div>
+        <div>
+            <p v-if="data.datasetId != null" style="margin-left: 60px" v-if="data.datasetId != null">
+                <b>Total dataset images: {{data.datasetTotalImages}}</b>
+            </p>
+            <p v-if="data.datasetId != null" style="margin-left: 60px" v-if="data.datasetId != null">
+                <b>Total dataset objects: {{data.datasetTotalObjects}}</b>
+            </p>
+        </div>
+    </div>
+    <el-button
+            type="primary"
+            class="regular"
+            :loading="!!data.progress1.message"
+            @click="command('download-annotations')"
+            v-if="!data.done1">
+        Download annotations
+    </el-button>
+    <div v-if="data.progress1.message" class="mt10">
+        <div style="color: #20a0ff">
+            {{data.progress1.message}}: {{data.progress1.current}} / {{data.progress1.total}}
+        </div>
+        <el-progress :percentage="data.progress1.percent"></el-progress>
+    </div>
+    <div v-if="data.done1">
+        <i class="zmdi zmdi-check-circle mr5" style="color: #13ce66"></i>
+        <span style="color: #5a6772;">Project has been successfully downloaded</span>
+    </div>
+</sly-card>

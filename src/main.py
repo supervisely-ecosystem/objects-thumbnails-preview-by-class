@@ -1,27 +1,23 @@
-import init_ui
+import os
+import sys
+from pathlib import Path
+
 import globals as g
-import functions as f
 import supervisely_lib as sly
-import classes_table
+import init_ui
 
 
-@g.my_app.callback("init-gallery")
-@sly.timeit
-def init_gallery(api: sly.Api, task_id, context, state, app_logger):
-    current_page = state['galleryPage']
-    f.update_gallery_by_page(current_page, state, state["selectedClasses"])
+root_source_dir = str(Path(sys.argv[0]).parents[1])
+sly.logger.info(f"Root source directory: {root_source_dir}")
+sys.path.append(root_source_dir)
 
+source_path = str(Path(sys.argv[0]).parents[0])
+sly.logger.info(f"Source directory: {source_path}")
+sys.path.append(source_path)
 
-@g.my_app.callback("update-gallery")
-@sly.timeit
-def update_gallery(api: sly.Api, task_id, context, state, app_logger):
-    g.old_input = state['galleryPage']
-    go_to_page = state.get('inputPage')
-    current_page = int(go_to_page)
-    if g.old_input > current_page or g.selected_classes != state['selectedClasses']:
-        current_page = g.first_page
-    g.old_rows = state['rows']
-    f.update_gallery_by_page(current_page, state, state["selectedClasses"])
+ui_sources_dir = os.path.join(source_path, "ui")
+sys.path.append(ui_sources_dir)
+sly.logger.info(f"Added to sys.path: {ui_sources_dir}")
 
 
 def main():
@@ -35,10 +31,10 @@ def main():
     data = {}
     state = {}
 
-    classes_json, selected_classes_names, selected_classes, stats = classes_table.build(g.api, g.PROJECT_ID, g.meta, g.DATASET_ID)
-    init_ui.init(data, state, classes_json, selected_classes_names, selected_classes, stats)
+    init_ui.init(data, state)
 
-    g.my_app.run(state=state, data=data, initial_events=[{"state": state, "command": "init-gallery"}])
+    g.my_app.compile_template(root_source_dir)
+    g.my_app.run(state=state, data=data)
 
 
 if __name__ == "__main__":

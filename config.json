@@ -1,11 +1,10 @@
 {
-  "name": "Localization quality control",
+  "name": "Objects thumbnails review by class",
   "type": "app",
   "categories": [
-    "Transforms",
     "Images"
   ],
-  "description": "Revieq object annotations with ease",
+  "description": "Review object annotations with ease",
   "docker_image": "supervisely/base-py-sdk:6.1.102",
   "main_script": "src/main.py",
   "gui_template": "src/gui.html",
@@ -13,7 +12,6 @@
   "icon": "https://img.icons8.com/color/100/000000/crop--v1.png",
   "icon_background": "#FFFFFF",
   "context_menu": {
-    "target": ["images_project"],
-    "context_category": "Transform"
+    "target": ["images_project", "images_dataset"]
   }
 }
