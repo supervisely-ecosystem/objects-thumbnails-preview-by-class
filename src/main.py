@@ -4,7 +4,6 @@ from pathlib import Path
 
 import globals as g
 import supervisely_lib as sly
-import init_ui
 
 
 root_source_dir = str(Path(sys.argv[0]).parents[1])
@@ -18,6 +17,9 @@ sys.path.append(source_path)
 ui_sources_dir = os.path.join(source_path, "ui")
 sys.path.append(ui_sources_dir)
 sly.logger.info(f"Added to sys.path: {ui_sources_dir}")
+
+
+import init_ui
 
 
 def main():
