@@ -10,7 +10,7 @@ TASK_ID = my_app.task_id
 TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
 PROJECT_ID = int(os.environ['modal.state.slyProjectId'])
-DATASET_ID = int(os.environ['modal.state.slyDatasetId'])
+DATASET_ID = os.environ.get('modal.state.slyDatasetId', None)
 if DATASET_ID is not None:
     DATASET_ID = int(DATASET_ID)
 
