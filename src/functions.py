@@ -1,4 +1,3 @@
-import numpy as np
 import globals as g
 import supervisely_lib as sly
 from create_gallery import Gallery

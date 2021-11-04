@@ -23,7 +23,8 @@
             <sly-grid-gallery
                     v-if="data.perClass"
                     v-loading="state.loadingGallery"
-                    :content="data.perClass.content">
+                    :content="data.perClass.content"
+                    :options="data.perClass.options">
                 <template v-slot:card-footer="{ annotation }">
                     <div class="mt5" style="text-align: center">
                         <el-tag type="primary">{{annotation.title}}</el-tag>

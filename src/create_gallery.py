@@ -7,8 +7,8 @@ from supervisely_lib.annotation.annotation import Annotation
 
 class Gallery:
     def __init__(self, task_id, api: Api, v_model, project_meta: ProjectMeta, col_number: int, with_info=False,
-                 enable_zoom=True, resize_on_zoom=False,
-                 sync_views=True, show_preview=True, selectable=False, opacity=0.5, show_opacity_header=True):
+                 enable_zoom=False, resize_on_zoom=True,
+                 sync_views=False, show_preview=True, selectable=False, opacity=0.5, show_opacity_header=True):
         self._task_id = task_id
         self._api = api
         self._v_model = v_model
