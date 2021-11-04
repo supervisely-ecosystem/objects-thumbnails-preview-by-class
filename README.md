@@ -42,7 +42,4 @@ Preview objects of selected classes
 3. Press `Create gallery` button to preview objects of selected classes
 4. Stop application manually
 
-<p float="left">
-  <img src="https://github.com/supervisely-ecosystem/objects-thumbnails-preview-by-class/releases/download/v0.0.1/thumbnailsapp.gif?raw=true" style="width:80%;"/>
-</p>   
-
+<a data-key="sly-embeded-video-link" href="https://youtu.be/VeANefh_Gfg" data-video-code="VeANefh_Gfg"> <img src="https://i.imgur.com/ztTRL06.png" alt="SLY_EMBEDED_VIDEO_LINK"  width="800"> </a>  
