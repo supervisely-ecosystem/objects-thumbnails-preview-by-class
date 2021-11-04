@@ -40,19 +40,17 @@ def get_input_data_and_classes_stats(project_id, dataset_id=None):
                 if ds["id"] == dataset_id:
                     class_objects_total_area[item["objectClass"]["name"]] = f"{round(ds['percentage'], 2)}%"
 
-    selected_classes_names = []
     classes_json = g.meta.obj_classes.to_json()
     for obj_class in classes_json[:]:
         if class_images[obj_class["title"]] == 0:
             classes_json.remove(obj_class)
             continue
-        selected_classes_names.append(obj_class["title"])
         obj_class["objectsCount"] = class_objects[obj_class["title"]]
         obj_class["imagesCount"] = class_images[obj_class["title"]]
         obj_class["objectsTotalArea"] = class_objects_total_area[obj_class["title"]]
 
     data_stats = {"project": [total_images, total_objects], "dataset": [total_ds_images, total_ds_objects]}
-    return classes_json, selected_classes_names, len(classes_json) * [True], data_stats
+    return classes_json, data_stats
 
 
 def generate_col_map(curr_page_data):
@@ -98,7 +96,7 @@ def build_pages(gallery_map, app_state):
         gallery_map[class_name] = list(reversed(arr))  # reverse the array so it's faster to delete the items later
 
     cur_page_batch = []
-    cls_per_page = len(app_state["selectedClasses"])
+    cls_per_page = 10
     objs_per_cls = app_state["objectsPerClassPerPage"]
     items_list = list(gallery_map.items())
     while len(items_list) > 0:
