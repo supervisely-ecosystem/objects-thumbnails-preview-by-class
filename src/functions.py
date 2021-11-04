@@ -45,6 +45,9 @@ def get_input_data_and_classes_stats(project_id, dataset_id=None):
         if class_images[obj_class["title"]] == 0:
             classes_json.remove(obj_class)
             continue
+        if obj_class["shape"] == "cuboid" or obj_class["shape"] == "point":
+            classes_json.remove(obj_class)
+            continue
         obj_class["objectsCount"] = class_objects[obj_class["title"]]
         obj_class["imagesCount"] = class_images[obj_class["title"]]
         obj_class["objectsTotalArea"] = class_objects_total_area[obj_class["title"]]
