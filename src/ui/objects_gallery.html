@@ -10,9 +10,11 @@
 >
     <div>
         <sly-field title="" class="mt10">
-            <div v-if="state.activeStep === 3 && !state.loadingGallery && state.done3" class="fflex mb15">
+            <div v-if="state.activeStep === 3 && !state.loadingGallery && state.done3" class="fflex mb15" style="justify-content: center;">
+
 
                 <el-pagination
+                        style="align-content: center;"
                         @current-change="command('update-gallery')"
                         :current-page.sync="state.inputPage"
                         layout="prev, pager, next, jumper"
@@ -31,15 +33,13 @@
                     </div>
                 </template>
             </sly-grid-gallery>
-            <div v-if="state.activeStep === 3 && !state.loadingGallery" class="fflex" style="float: right;">
-
+            <div v-if="state.activeStep === 3 && !state.loadingGallery" class="fflex" style="justify-content: center;">
                 <el-pagination
-                        @current-change="command('update-gallery')"
+                        @current-change="command('update-gallery'); $nextTick(() => { $refs['step3'].$el.scrollIntoView({behavior: 'smooth', block: 'start'}); })"
                         :current-page.sync="state.inputPage"
                         layout="prev, pager, next, jumper"
                         :page-count="state.totalPages">
                 </el-pagination>
-
             </div>
         </sly-field>
     </div>
