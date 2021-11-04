@@ -40,6 +40,7 @@ Preview objects of selected classes
 1. Download annotations from Project or Dataset
 2. Select classes that you want to review
 3. Press `Create gallery` button to preview objects of selected classes
+4. Stop application manually
 
 <p float="left">
   <img src="https://github.com/supervisely-ecosystem/objects-thumbnails-preview-by-class/releases/download/v0.0.1/thumbnailsapp.gif?raw=true" style="width:80%;"/>
