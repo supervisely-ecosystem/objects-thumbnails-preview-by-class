@@ -31,6 +31,10 @@
             <el-input-number v-model="state.objectsPerClassPerPage" :min="1"
                              :max="30"></el-input-number>
         </sly-field>
+        <sly-field title="Zoom factor" class="mt10" style="margin-left: 15px">
+            <el-input-number v-model="state.zoomFactor" :min="1"
+                             :max="3" step="0.1"></el-input-number>
+        </sly-field>
         <el-button style="margin-left: 60px" type="primary" class="mt10 regular"
                    :disabled="state.selectedClasses.length === 0"
                    @click="command('update-gallery');">

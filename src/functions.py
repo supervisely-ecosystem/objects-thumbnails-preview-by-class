@@ -143,10 +143,9 @@ def update_gallery_by_page(current_page, state, page_cache):
     col_map = generate_col_map(curr_page_data)
     cols = len(col_map.items())
 
-    full_gallery = Gallery(g.TASK_ID, g.api, 'data.perClass', g.meta, cols, True, True)
+    full_gallery = Gallery(g.TASK_ID, g.api, 'data.perClass', g.meta, cols, resize_on_zoom=True, show_preview=True)
     for image_url, ann, image_title, col_idx in curr_page_data:
-        full_gallery.add_item(title=image_title, ann=ann, image_url=image_url,
-                              col_index=col_idx)
+        full_gallery.add_item(title=image_title, ann=ann, image_url=image_url, col_index=col_idx, zoom_to_figure=(ann.labels[0].to_json()["id"], state["zoomFactor"]))
     full_gallery.update(options=True, need_zoom=True)
 
     fields = [
