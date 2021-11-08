@@ -4,7 +4,7 @@
   "categories": [
     "Images"
   ],
-  "description": "Review object annotations with ease",
+  "description": "Review images annotations object by object with ease",
   "docker_image": "supervisely/base-py-sdk:6.1.102",
   "main_script": "src/main.py",
   "gui_template": "src/gui.html",
