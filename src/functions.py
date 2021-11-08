@@ -39,12 +39,14 @@ def get_input_data_and_classes_stats(project_id, dataset_id=None):
                 if ds["id"] == dataset_id:
                     class_objects_total_area[item["objectClass"]["name"]] = f"{round(ds['percentage'], 2)}%"
 
-    classes_json = g.meta.obj_classes.to_json()
+    table_meta = g.meta
+    for obj_class in table_meta.obj_classes:
+        if obj_class.geometry_type == sly.Cuboid or obj_class.geometry_type == sly.Point or obj_class.geometry_type == sly.Polyline:
+            table_meta = table_meta.delete_obj_class(obj_class.name)
+
+    classes_json = table_meta.obj_classes.to_json()
     for obj_class in classes_json[:]:
         if class_images[obj_class["title"]] == 0:
-            classes_json.remove(obj_class)
-            continue
-        if obj_class["shape"] == "cuboid" or obj_class["shape"] == "point":
             classes_json.remove(obj_class)
             continue
         obj_class["objectsCount"] = class_objects[obj_class["title"]]
@@ -95,15 +97,14 @@ def build_gallery_map(anns, curr_images_urls, selected_classes):
 def build_pages(gallery_map, app_state):
     pages = []
     for class_name, arr in gallery_map.items():
-        gallery_map[class_name] = list(reversed(arr))  # reverse the array so it's faster to delete the items later
+        gallery_map[class_name] = list(reversed(arr))
 
     cur_page_batch = []
     cls_per_page = 10
     objs_per_cls = app_state["objectsPerClassPerPage"]
     items_list = list(gallery_map.items())
     while len(items_list) > 0:
-        for col_idx, (class_name, class_objs) in enumerate(items_list[:cls_per_page]):  # iterate first classes
-
+        for col_idx, (class_name, class_objs) in enumerate(items_list[:cls_per_page]):
             cur_page_batch += [obj + tuple([col_idx + 1]) for obj in
                                class_objs[-objs_per_cls:]]
             del class_objs[-objs_per_cls:]

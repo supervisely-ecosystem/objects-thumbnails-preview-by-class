@@ -35,10 +35,10 @@ def update_gallery(api: sly.Api, task_id, context, state, app_logger):
     ]
     g.api.app.set_fields(g.TASK_ID, fields)
 
-    g.old_input = state['galleryPage']
+    g.previous_input = state['galleryPage']
     go_to_page = state.get('inputPage')
     current_page = int(go_to_page)
     if g.selected_classes != state['selectedClasses'] or g.obj_per_class_per_page != state["objectsPerClassPerPage"]:
-        current_page = g.first_page
+        current_page = 1
         g.page_cache = None
     f.update_gallery_by_page(current_page, state, g.page_cache)

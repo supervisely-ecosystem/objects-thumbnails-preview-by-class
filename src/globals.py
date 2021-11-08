@@ -44,6 +44,4 @@ selected_classes = []
 
 page_cache = None
 obj_per_class_per_page = None
-
-first_page = 1
-old_input = None
+previous_input = None
