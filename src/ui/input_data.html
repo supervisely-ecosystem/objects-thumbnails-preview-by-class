@@ -6,36 +6,18 @@
         ref="step1"
 >
     <div class="fflex">
-        <sly-field title="" description="Project">
+        <sly-field title="" :description="`Project: ${data.projectTotalImages} images, ${data.projectTotalObjects} objects`">
             <a slot="title" target="_blank"
                :href="`/projects/${data.projectId}/datasets`">{{data.projectName}}</a>
             <sly-icon slot="icon" :options="{ imageUrl: `${data.projectPreviewUrl}` }"/>
         </sly-field>
-        <sly-field style="margin-left: 15px" v-if="data.datasetId != null" title="" description="Dataset">
+        <sly-field style="margin-left: 15px" v-if="data.datasetId != null" title="" :description="`Dataset: ${data.datasetTotalImages} images, ${data.datasetTotalObjects} objects`">
             <a slot="title" target="_blank"
                :href="`/projects/${data.projectId}/datasets`">{{data.datasetName}}</a>
             <sly-icon slot="icon" :options="{ imageUrl: `${data.datasetPreviewUrl}` }"/>
         </sly-field>
     </div>
-    <div class="fflex">
-        <div>
-            <p>
-                <b>Total images: {{data.projectTotalImages}}</b>
-            </p>
 
-            <p>
-                <b>Total objects: {{data.projectTotalObjects}}</b>
-            </p>
-        </div>
-        <div>
-            <p v-if="data.datasetId != null" style="margin-left: 60px" v-if="data.datasetId != null">
-                <b>Total dataset images: {{data.datasetTotalImages}}</b>
-            </p>
-            <p v-if="data.datasetId != null" style="margin-left: 60px" v-if="data.datasetId != null">
-                <b>Total dataset objects: {{data.datasetTotalObjects}}</b>
-            </p>
-        </div>
-    </div>
     <el-button
             type="primary"
             class="regular"

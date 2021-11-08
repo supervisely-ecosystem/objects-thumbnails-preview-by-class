@@ -1,5 +1,5 @@
 <sly-card class="mt15"
-          :title="`Select classes to review ${state.selectedClasses.length}/${data.classes.length}`"
+          title="Select classes to review"
           subtitle=""
           :options="{collapsable: true}"
           :disabled="{disabled: state.disabled2, message: 'Download annotations data at STEP 1 before selecting classes'}"
@@ -24,9 +24,7 @@
         <el-table-column prop="objectsTotalArea" label="Total object area" sortable width="180"></el-table-column>
     </el-table>
 
-    <hr size="50px">
-
-    <div class="fflex">
+    <div class="fflex" style="border-top: 1px solid #e3e6ec;">
         <sly-field title="Objects per class on page" class="mt10">
             <el-input-number v-model="state.objectsPerClassPerPage" :min="1"
                              :max="30"></el-input-number>
@@ -38,7 +36,7 @@
         <el-button style="margin-left: 60px" type="primary" class="mt10 regular"
                    :disabled="state.selectedClasses.length === 0"
                    @click="command('update-gallery');">
-            Preview objects
+            Preview objects for {{state.selectedClasses.length}} classes
         </el-button>
     </div>
 </sly-card>
