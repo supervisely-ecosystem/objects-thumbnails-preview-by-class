@@ -14,12 +14,16 @@ def init(data, state, stats):
     if g.DATASET_ID is not None:
         data["datasetId"] = g.dataset_info.id
         data["datasetName"] = g.dataset_info.name
-        data["datasetPreviewUrl"] = g.api.image.preview_url(g.dataset_info.reference_image_url, 100, 100)
+        data["datasetPreviewUrl"] = g.api.image.preview_url(g.dataset_preview_image.full_storage_url, 100, 100)
+        data["previewImageId"] = g.dataset_preview_image.id
         data["datasetTotalImages"] = stats["dataset"][0]
         data["datasetTotalObjects"] = stats["dataset"][1]
 
     data["done1"] = False
     progress1.init_data(data)
+
+    state["teamId"] = g.TEAM_ID
+    state["workspaceId"] = g.WORKSPACE_ID
 
     state["activeStep"] = 1
     state["collapsed1"] = False

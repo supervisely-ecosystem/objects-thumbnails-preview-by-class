@@ -1,6 +1,7 @@
 import globals as g
 import supervisely_lib as sly
-from supervisely_lib.app.widgets.grid_gallery import Gallery
+from grid_gallery import Gallery
+# from supervisely_lib.app.widgets.grid_gallery import Gallery
 
 
 def get_input_data_and_classes_stats(project_id, dataset_id=None):
@@ -59,7 +60,7 @@ def get_input_data_and_classes_stats(project_id, dataset_id=None):
 
 def generate_col_map(curr_page_data):
     class_names = []
-    for image_url, ann, obj_name, col_idx in curr_page_data:
+    for image_url, ann, obj_name, labeling_url, col_idx in curr_page_data:
         class_names.append(ann.labels[0].obj_class.name)
     col_map = {}
     class_names = list(set(class_names))
@@ -79,18 +80,18 @@ def get_ann_by_image_id(dataset_id, image_ids, batch_cnt):
     return annotations
 
 
-def build_gallery_map(anns, curr_images_urls, selected_classes):
+def build_gallery_map(anns, curr_images_urls, images_labeling_urls, selected_classes):
     gallery_map = {}
     for obj_class_name in selected_classes:
         curr_cls_objs = []
         gallery_map[obj_class_name] = curr_cls_objs
-        for ann, image_url in zip(anns, curr_images_urls):
+        for ann, image_url, image_labeling_url in zip(anns, curr_images_urls, images_labeling_urls):
             for label in ann.labels:
                 if label.obj_class.name != obj_class_name:
                     continue
                 new_ann = ann.clone(labels=[label])
-                image_title = f"{obj_class_name}_{len(curr_cls_objs) + 1}"
-                curr_cls_objs.append((image_url, new_ann, image_title))
+                image_title = f"{obj_class_name} {len(curr_cls_objs) + 1}"
+                curr_cls_objs.append((image_url, new_ann, image_title, image_labeling_url))
     return gallery_map
 
 
@@ -120,11 +121,11 @@ def build_pages(gallery_map, app_state):
     return pages
 
 
-def get_pages(anns, curr_images_urls, selected_classes, app_state):
+def get_pages(anns, curr_images_urls, images_labeling_urls, selected_classes, app_state):
     objs_per_cls_per_page = app_state["objectsPerClassPerPage"]
     g.obj_per_class_per_page = objs_per_cls_per_page
 
-    gallery_map = build_gallery_map(anns, curr_images_urls, selected_classes)
+    gallery_map = build_gallery_map(anns, curr_images_urls, images_labeling_urls, selected_classes)
     pages = build_pages(gallery_map, app_state)
     return pages
 
@@ -134,7 +135,7 @@ def update_gallery_by_page(current_page, state, page_cache):
     g.selected_classes = selected_classes
 
     if page_cache is None:
-        pages = get_pages(g.annotations, g.images_urls, selected_classes, state)
+        pages = get_pages(g.annotations, g.images_urls, g.images_labeling_urls, selected_classes, state)
         g.page_cache = (pages)
     else:
         pages = page_cache
@@ -143,9 +144,9 @@ def update_gallery_by_page(current_page, state, page_cache):
     col_map = generate_col_map(curr_page_data)
     cols = len(col_map.items())
 
-    full_gallery = Gallery(g.TASK_ID, g.api, 'data.perClass', g.meta, cols, resize_on_zoom=True, show_preview=True)
-    for image_url, ann, image_title, col_idx in curr_page_data:
-        full_gallery.add_item(title=image_title, ann=ann, image_url=image_url, col_index=col_idx, zoom_to_figure=(ann.labels[0].to_json()["id"], state["zoomFactor"]))
+    full_gallery = Gallery(g.TASK_ID, g.api, 'data.perClass', g.meta, cols, resize_on_zoom=True, show_preview=True, preview_info=True)
+    for image_url, ann, image_title, labeling_url, col_idx in curr_page_data:
+        full_gallery.add_item(title=image_title, ann=ann, image_url=image_url, col_index=col_idx, zoom_to_figure=(ann.labels[0].to_json()["id"], state["zoomFactor"]), labeling_url=labeling_url)
     full_gallery.update(options=True)
 
     fields = [

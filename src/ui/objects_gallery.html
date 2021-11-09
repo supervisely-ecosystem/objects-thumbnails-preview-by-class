@@ -10,7 +10,8 @@
 >
     <div>
         <sly-field title="" class="mt10">
-            <div v-if="state.activeStep === 3 && !state.loadingGallery && state.done3" class="fflex mb15" style="justify-content: center;">
+            <div v-if="state.activeStep === 3 && !state.loadingGallery && state.done3" class="fflex mb15"
+                 style="justify-content: center;">
 
 
                 <el-pagination
@@ -29,7 +30,9 @@
                     :options="data.perClass.options">
                 <template v-slot:card-footer="{ annotation }">
                     <div class="mt5" style="text-align: center">
-                        <el-tag type="primary">{{annotation.title}}</el-tag>
+                        <a :href="`${annotation.info.labelingUrl}`">
+                            <el-tag type="primary">{{annotation.title}} <i class="zmdi zmdi-open-in-new"></i></el-tag>
+                        </a>
                     </div>
                 </template>
             </sly-grid-gallery>
