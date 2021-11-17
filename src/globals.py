@@ -22,12 +22,23 @@ if DATASET_ID is not None:
     dataset_info = api.dataset.get_info_by_id(DATASET_ID)
     datasets = [dataset_info]
     images = api.image.get_list(dataset_info.id, sort="name")
+    dataset_preview_image = images[0]
+    images_labeling_urls = []
+    for image in images:
+        image_labeling_url = f"{api.server_address}/app/images/{TEAM_ID}/{WORKSPACE_ID}/{PROJECT_ID}/{DATASET_ID}#image-{image.id}"
+        images_labeling_urls.append(image_labeling_url)
+
+
 else:
     datasets = api.dataset.get_list(PROJECT_ID)
     images = []
+    images_labeling_urls = []
     for dataset in datasets:
         ds_images = api.image.get_list(dataset.id, sort="name")
         images.extend(ds_images)
+        for image in ds_images:
+            image_labeling_url = f"{api.server_address}/app/images/{TEAM_ID}/{WORKSPACE_ID}/{PROJECT_ID}/{DATASET_ID}#image-{image.id}"
+            images_labeling_urls.extend(image_labeling_url)
 
 image_ids = []
 images_urls = []

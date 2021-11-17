@@ -13,7 +13,7 @@
         </sly-field>
         <sly-field style="margin-left: 15px" v-if="data.datasetId != null" title="" :description="`Dataset: ${data.datasetTotalImages} images, ${data.datasetTotalObjects} objects`">
             <a slot="title" target="_blank"
-               :href="`/projects/${data.projectId}/datasets`">{{data.datasetName}}</a>
+               :href="`/app/images/${state.teamId}/${state.workspaceId}/${data.projectId}/${data.datasetId}/?page=1#image-${data.previewImageId}`">{{data.datasetName}}</a>
             <sly-icon slot="icon" :options="{ imageUrl: `${data.datasetPreviewUrl}` }"/>
         </sly-field>
     </div>

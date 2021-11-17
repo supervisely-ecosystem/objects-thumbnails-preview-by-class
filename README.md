@@ -42,4 +42,4 @@ Preview objects of selected classes
 3. Press `Create gallery` button to preview objects of selected classes
 4. Stop application manually
 
-<a data-key="sly-embeded-video-link" href="https://youtu.be/VeANefh_Gfg" data-video-code="VeANefh_Gfg"> <img src="https://i.imgur.com/ztTRL06.png" alt="SLY_EMBEDED_VIDEO_LINK"  width="800"> </a>  
+<a data-key="sly-embeded-video-link" href="https://youtu.be/xUQLrckXU_M" data-video-code="xUQLrckXU_M"> <img src="https://i.imgur.com/ztTRL06.png" alt="SLY_EMBEDED_VIDEO_LINK"  width="800"> </a>  
