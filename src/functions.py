@@ -8,6 +8,11 @@ def get_input_data_and_classes_stats(project_id, dataset_id=None):
 
     total_images = stats["images"]["total"]["imagesInDataset"]
     total_ds_images = stats["datasets"]["total"]["imagesCount"]
+    if dataset_id is not None:
+        for item in stats["datasets"]["items"]:
+            if item["id"] == dataset_id:
+                total_ds_images = item["imagesCount"]
+
     class_images = {}
     for item in stats["images"]["objectClasses"]:
         if dataset_id is None:
