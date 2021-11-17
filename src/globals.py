@@ -37,8 +37,8 @@ else:
         ds_images = api.image.get_list(dataset.id, sort="name")
         images.extend(ds_images)
         for image in ds_images:
-            image_labeling_url = f"{api.server_address}/app/images/{TEAM_ID}/{WORKSPACE_ID}/{PROJECT_ID}/{DATASET_ID}#image-{image.id}"
-            images_labeling_urls.extend(image_labeling_url)
+            image_labeling_url = f"{api.server_address}/app/images/{TEAM_ID}/{WORKSPACE_ID}/{PROJECT_ID}/{dataset.id}#image-{image.id}"
+            images_labeling_urls.append(image_labeling_url)
 
 image_ids = []
 images_urls = []
