@@ -1,2 +1,2 @@
-supervisely==6.1.104
+supervisely==6.2.7
 diskcache==5.2.1

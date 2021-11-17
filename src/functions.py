@@ -1,7 +1,6 @@
 import globals as g
 import supervisely_lib as sly
-from grid_gallery import Gallery
-# from supervisely_lib.app.widgets.grid_gallery import Gallery
+from supervisely_lib.app.widgets.grid_gallery import Gallery
 
 
 def get_input_data_and_classes_stats(project_id, dataset_id=None):
@@ -146,7 +145,7 @@ def update_gallery_by_page(current_page, state, page_cache):
 
     full_gallery = Gallery(g.TASK_ID, g.api, 'data.perClass', g.meta, cols, resize_on_zoom=True, show_preview=True, preview_info=True)
     for image_url, ann, image_title, labeling_url, col_idx in curr_page_data:
-        full_gallery.add_item(title=image_title, ann=ann, image_url=image_url, col_index=col_idx, zoom_to_figure=(ann.labels[0].to_json()["id"], state["zoomFactor"]), labeling_url=labeling_url)
+        full_gallery.add_item(title=image_title, ann=ann, image_url=image_url, col_index=col_idx, zoom_to_figure=(ann.labels[0].to_json()["id"], state["zoomFactor"]), title_url=labeling_url)
     full_gallery.update(options=True)
 
     fields = [
