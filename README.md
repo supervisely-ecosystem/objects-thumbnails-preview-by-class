@@ -27,7 +27,7 @@ Preview objects of selected classes
 
 # How To Run 
 
-1. Add [Objects thumbnails preview by class](https://ecosystem.supervise.ly/apps/test-compare-gallery) to your team from Ecosystem.
+1. Add [Objects thumbnails preview by class](https://ecosystem.supervise.ly/apps/objects-thumbnails-preview-by-class) to your team from Ecosystem.
 
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/objects-thumbnails-preview-by-class" src="https://i.imgur.com/cCB7M26.png" width="450px" style='padding-bottom: 20px'/>  
 
