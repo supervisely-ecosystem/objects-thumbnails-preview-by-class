@@ -143,7 +143,10 @@ def update_gallery_by_page(current_page, state, page_cache):
         g.page_cache = (pages)
     else:
         pages = page_cache
-    curr_page_data = pages[current_page - 1]
+    try:
+        curr_page_data = pages[current_page - 1]
+    except:
+        curr_page_data = pages[0]
 
     col_map = generate_col_map(curr_page_data)
     cols = len(col_map.items())
