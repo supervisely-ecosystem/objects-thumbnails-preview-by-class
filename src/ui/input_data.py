@@ -33,7 +33,10 @@ def init(data, state, stats):
 @sly.timeit
 @g.my_app.ignore_errors_and_show_dialog_window()
 def download_annotations(api: sly.Api, task_id, context, state, app_logger):
-    progress1.set_total(g.project_info.items_count)
+    if g.DATASET_ID is not None:
+        progress1.set_total(g.dataset_info.items_count)
+    else:
+        progress1.set_total(g.project_info.items_count)
 
     batch_cnt = 0
     for dataset in g.datasets:
