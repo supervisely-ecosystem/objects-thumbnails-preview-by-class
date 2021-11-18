@@ -7,7 +7,8 @@
 <p align="center">
   <a href="#Overview">Overview</a> •
   <a href="#How-To-Run">How To Run</a> •
-  <a href="#How-To-Use">How To Use</a> 
+  <a href="#How-To-Use">How To Use</a> •
+  <a href="#Demo">Demo</a> 
 </p>
 
 
@@ -23,7 +24,7 @@
 
 ## Overview
 
-Preview objects of selected classes
+The app create and visualize objects gallery from dataset or project. App can be used as a template for specific apps for quality assurance.
 
 # How To Run 
 
@@ -42,4 +43,9 @@ Preview objects of selected classes
 3. Press `Create gallery` button to preview objects of selected classes
 4. Stop application manually
 
+<div align="center" markdown>
+<img src="https://i.imgur.com/PfEMTGE.png"/>
+</div>
+
+# Demo
 <a data-key="sly-embeded-video-link" href="https://youtu.be/xUQLrckXU_M" data-video-code="xUQLrckXU_M"> <img src="https://i.imgur.com/ztTRL06.png" alt="SLY_EMBEDED_VIDEO_LINK"  width="800"> </a>  
