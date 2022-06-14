@@ -1,9 +1,10 @@
 import os
 from diskcache import Cache
-import supervisely_lib as sly
-from supervisely_lib.io.fs import mkdir
+import supervisely as sly
+from supervisely.io.fs import mkdir
+from supervisely.app.v1.app_service import AppService
 
-my_app = sly.AppService()
+my_app: AppService = AppService()
 api: sly.Api = my_app.public_api
 
 TASK_ID = my_app.task_id

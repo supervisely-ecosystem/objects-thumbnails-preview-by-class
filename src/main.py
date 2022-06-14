@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 import globals as g
-import supervisely_lib as sly
+import supervisely as sly
 
 
 root_source_dir = str(Path(sys.argv[0]).parents[1])

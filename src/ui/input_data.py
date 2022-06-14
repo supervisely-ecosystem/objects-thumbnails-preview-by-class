@@ -43,7 +43,7 @@ def download_annotations(api: sly.Api, task_id, context, state, app_logger):
         images = api.image.get_list(dataset.id, sort="name")
         image_ids = [image_info.id for image_info in images]
         g.image_ids.extend(image_ids)
-        g.images_urls.extend([image_info.full_storage_url for image_info in images])
+        g.images_urls.extend([image_info.path_original for image_info in images])
         for batch in sly.batched(image_ids):
             batch_cnt += 1
             g.annotations.extend(f.get_ann_by_image_id(dataset.id, batch, batch_cnt))
