@@ -8,7 +8,7 @@ def init(data, state, classes_json):
 
     state["loadingGallery"] = True
     state["selectedClasses"] = [] #selected_classes_names
-    state["objectsPerClassPerPage"] = 10
+    state["objectsPerClassPerPage"] = 3
     state["zoomFactor"] = 1.2
 
     state["disabled2"] = True
