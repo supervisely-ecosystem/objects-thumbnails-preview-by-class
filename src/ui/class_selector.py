@@ -1,6 +1,6 @@
 import globals as g
 import functions as f
-import supervisely_lib as sly
+import supervisely as sly
 
 
 def init(data, state, classes_json):

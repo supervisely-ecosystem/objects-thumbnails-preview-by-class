@@ -1,6 +1,6 @@
 import globals as g
 import functions as f
-import supervisely_lib as sly
+import supervisely as sly
 
 progress1 = sly.app.widgets.ProgressBar(g.TASK_ID, g.api, "data.progress1", "Download annotations", min_report_percent=5)
 

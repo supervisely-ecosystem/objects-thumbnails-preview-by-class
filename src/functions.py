@@ -1,6 +1,6 @@
 import globals as g
 import supervisely as sly
-from supervisely.app.widgets.grid_gallery import Gallery
+from supervisely.app.v1.widgets.grid_gallery import Gallery
 
 
 def get_input_data_and_classes_stats(project_id, dataset_id=None):
