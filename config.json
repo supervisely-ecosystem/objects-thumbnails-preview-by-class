@@ -5,7 +5,7 @@
     "images",
     "visualization",
     "exploration",
-    "visualization-stats"
+    "visualization stats"
   ],
   "description": "Review images annotations object by object with ease",
   "docker_image": "supervisely/base-py-sdk:6.23.1",
