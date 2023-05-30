@@ -1,2 +1,3 @@
-supervisely==6.72.21
+supervisely==6.35.0
+supervisely[apps]==6.35.0
 diskcache==5.2.1
