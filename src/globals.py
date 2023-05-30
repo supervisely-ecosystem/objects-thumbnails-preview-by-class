@@ -26,7 +26,7 @@ if DATASET_ID is not None:
     dataset_preview_image = images[0]
     images_labeling_urls = []
     for image in images:
-        image_labeling_url = f"{api.server_address}/app/images/{TEAM_ID}/{WORKSPACE_ID}/{PROJECT_ID}/{DATASET_ID}#image-{image.id}"
+        image_labeling_url = f"/app/images/{TEAM_ID}/{WORKSPACE_ID}/{PROJECT_ID}/{DATASET_ID}#image-{image.id}"
         images_labeling_urls.append(image_labeling_url)
 
 
