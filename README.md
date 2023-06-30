@@ -1,5 +1,5 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/qIHRw3A.png"/>
+<img src="media/poster.png"/>
 
 
 # Objects thumbnails preview by class
@@ -29,7 +29,7 @@ The app create and visualize objects gallery from dataset or project. App can be
 
 1. Add [Objects thumbnails preview by class](https://ecosystem.supervise.ly/apps/objects-thumbnails-preview-by-class) to your team from Ecosystem.
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/objects-thumbnails-preview-by-class" src="https://i.imgur.com/cCB7M26.png" width="450px" style='padding-bottom: 20px'/>  
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/objects-thumbnails-preview-by-class" src="media/htr1.png" width="450px" style='padding-bottom: 20px'/>  
 
 2. Run app from the context menu of **Images Project** or **Images Dataset**:
 3. Once app is started, it will appear in workspace tasks, to open the app click `Open` button
@@ -43,8 +43,8 @@ The app create and visualize objects gallery from dataset or project. App can be
 4. Stop application manually
 
 <div align="center" markdown>
-<img src="https://i.imgur.com/PfEMTGE.png"/>
+<img src="media/htu4.png"/>
 </div>
 
 # Demo
-<a data-key="sly-embeded-video-link" href="https://youtu.be/xUQLrckXU_M" data-video-code="xUQLrckXU_M"> <img src="https://i.imgur.com/ztTRL06.png" alt="SLY_EMBEDED_VIDEO_LINK"  width="800"> </a>  
+<a data-key="sly-embeded-video-link" href="https://youtu.be/xUQLrckXU_M" data-video-code="xUQLrckXU_M"> <img src="media/demo.png" alt="SLY_EMBEDED_VIDEO_LINK"  width="800"> </a>  
