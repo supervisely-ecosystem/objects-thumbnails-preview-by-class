@@ -8,7 +8,7 @@
     "visualization stats"
   ],
   "description": "Review images annotations object by object with ease",
-  "docker_image": "supervisely/base-py-sdk:6.35.0",
+  "docker_image": "supervisely/thumbnails-preview:1.0.0",
   "instance_version": "6.4.57",
   "main_script": "src/main.py",
   "gui_template": "src/gui.html",
