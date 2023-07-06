@@ -13,7 +13,7 @@
   "main_script": "src/main.py",
   "gui_template": "src/gui.html",
   "task_location": "workspace_tasks",
-  "icon": "https://i.imgur.com/4DQxmL0.png",
+  "icon": "media/icon.png",
   "icon_background": "#FFFFFF",
   "context_menu": {
     "target": [
@@ -21,5 +21,5 @@
       "images_dataset"
     ]
   },
-  "poster": "https://i.imgur.com/qIHRw3A.png"
+  "poster": "media/poster.png"
 }
