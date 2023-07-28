@@ -1,25 +1,25 @@
 {
-  "name": "Objects thumbnail preview",
-  "type": "app",
-  "categories": [
-    "images",
-    "visualization",
-    "exploration",
-    "visualization stats"
-  ],
-  "description": "Review images annotations object by object with ease",
-  "docker_image": "supervisely/thumbnails-preview:1.0.0",
-  "instance_version": "6.4.57",
-  "main_script": "src/main.py",
-  "gui_template": "src/gui.html",
-  "task_location": "workspace_tasks",
-  "icon": "https://i.imgur.com/4DQxmL0.png",
-  "icon_background": "#FFFFFF",
-  "context_menu": {
-    "target": [
-      "images_project",
-      "images_dataset"
-    ]
-  },
-  "poster": "https://i.imgur.com/qIHRw3A.png"
+    "name": "Objects thumbnail preview",
+    "type": "app",
+    "categories": [
+        "images",
+        "visualization",
+        "exploration",
+        "visualization stats"
+    ],
+    "description": "Review images annotations object by object with ease",
+    "docker_image": "supervisely/collaboration:0.0.1",
+    "instance_version": "6.4.57",
+    "main_script": "src/main.py",
+    "gui_template": "src/gui.html",
+    "task_location": "workspace_tasks",
+    "icon": "https://i.imgur.com/4DQxmL0.png",
+    "icon_background": "#FFFFFF",
+    "context_menu": {
+        "target": [
+            "images_project",
+            "images_dataset"
+        ]
+    },
+    "poster": "https://i.imgur.com/qIHRw3A.png"
 }
