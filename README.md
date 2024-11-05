@@ -13,11 +13,11 @@
 
 
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/objects-thumbnails-preview-by-class)
-[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervisely.com/apps/objects-thumbnails-preview-by-class)
+[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/objects-thumbnails-preview-by-class)
-[![views](https://app.supervise.ly/img/badges/views/supervisely-ecosystem/objects-thumbnails-preview-by-class.png)](https://supervise.ly)
-[![runs](https://app.supervise.ly/img/badges/runs/supervisely-ecosystem/objects-thumbnails-preview-by-class.png)](https://supervise.ly)
+[![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/objects-thumbnails-preview-by-class.png)](https://supervisely.com)
+[![runs](https://app.supervisely.com/img/badges/runs/supervisely-ecosystem/objects-thumbnails-preview-by-class.png)](https://supervisely.com)
 
 </div>
 
@@ -27,7 +27,7 @@ The app create and visualize objects gallery from dataset or project. App can be
 
 # How To Run 
 
-1. Add [Objects thumbnails preview by class](https://ecosystem.supervise.ly/apps/objects-thumbnails-preview-by-class) to your team from Ecosystem.
+1. Add [Objects thumbnails preview by class](https://ecosystem.supervisely.com/apps/objects-thumbnails-preview-by-class) to your team from Ecosystem.
 
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/objects-thumbnails-preview-by-class" src="https://i.imgur.com/cCB7M26.png" width="450px" style='padding-bottom: 20px'/>  
 
